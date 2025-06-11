@@ -23,17 +23,22 @@ app.post("/signup", async (req, res) => {
     return;
   }
 
-  await prismaClient.user.create({
-    data: {
-      email: parsedData.data?.username,
-      password: parsedData.data?.password,
-      name: parsedData.data.name,
-    },
-  });
-
-  res.json({
-    userId: 123,
-  });
+  try {
+    await prismaClient.user.create({
+      data: {
+        email: parsedData.data?.username,
+        password: parsedData.data?.password,
+        name: parsedData.data.name,
+      },
+    });
+    res.json({
+      userId: 123,
+    });
+  } catch (error) {
+    res.status(411).json({
+      message: "user already exists with this username",
+    });
+  }
 });
 
 app.post("/signin", (req, res) => {
