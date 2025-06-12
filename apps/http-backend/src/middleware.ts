@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/config";
 
 interface jwtpayload {
-  userId?: number;
+  userId?: string;
 }
 
 export function middleware(req: Request, res: Response, next: NextFunction) {
